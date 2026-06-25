@@ -695,6 +695,34 @@ h3 {
   box-shadow: 0 8px 20px rgba(23, 23, 23, 0.05);
 }
 
+.gallery-grid-keychains {
+  grid-auto-rows: 240px;
+}
+
+.gallery-grid-keychains .gallery-card {
+  min-height: 240px;
+}
+
+.gallery-cta {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  margin-top: 36px;
+  text-align: center;
+}
+
+.gallery-cta p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.gallery-cta .button {
+  min-width: min(100%, 320px);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
