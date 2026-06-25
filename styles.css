@@ -101,40 +101,27 @@ svg {
   overflow: visible;
 }
 
-.logo-layer {
-  position: absolute;
-  left: 5px;
-  width: 34px;
-  height: 15px;
-  border-radius: 999px 999px 12px 12px;
-  box-shadow: inset 0 -3px 0 rgba(52, 64, 87, 0.12);
-  transform: rotate(-3deg);
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(32, 169, 232, 0.18));
 }
 
-.logo-blue {
-  top: 4px;
-  z-index: 4;
-  width: 38px;
-  height: 18px;
-  background: var(--color-accent);
+.logo-t-bar {
+  fill: var(--color-accent);
 }
 
-.logo-coral {
-  top: 16px;
-  z-index: 3;
-  background: var(--color-coral);
+.logo-t-stem.logo-coral {
+  fill: var(--color-coral);
 }
 
-.logo-mint {
-  top: 26px;
-  z-index: 2;
-  background: var(--color-mint);
+.logo-t-stem.logo-mint {
+  fill: var(--color-mint);
 }
 
-.logo-yellow {
-  top: 34px;
-  z-index: 1;
-  background: var(--color-yellow);
+.logo-t-stem.logo-yellow {
+  fill: var(--color-yellow);
 }
 
 .brand b {
