@@ -703,6 +703,16 @@ h3 {
   min-height: 240px;
 }
 
+.gallery-grid-keychains-only {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 200px;
+  max-width: none;
+}
+
+.gallery-grid-keychains-only .gallery-card {
+  min-height: 200px;
+}
+
 .gallery-scroll-hint {
   margin: 0 0 14px;
   color: var(--color-muted);
@@ -1158,6 +1168,10 @@ h3 {
   .gallery-grid-catalog {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .gallery-grid-keychains-only {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1279,6 +1293,11 @@ h3 {
   .gallery-grid,
   .gallery-grid-catalog {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-grid-keychains-only {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 180px;
   }
 
   .product-card {
