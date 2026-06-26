@@ -1,728 +1,1398 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-428E1QC4NS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-428E1QC4NS");
-    </script>
-    <title>Taldo Studio 3D | Impressão 3D Personalizada em São Paulo</title>
-    <meta
-      name="description"
-      content="Brindes, chaveiros, lembrancinhas, caixinhas, suportes e peças sob encomenda em impressão 3D. Peça seu orçamento pelo WhatsApp."
-    >
-    <meta name="theme-color" content="#20a9e8">
-    <meta property="og:title" content="Impressão 3D Personalizada em São Paulo">
-    <meta
-      property="og:description"
-      content="A Taldo Studio 3D transforma ideias em produtos personalizados com criatividade, produção própria e atendimento direto pelo WhatsApp."
-    >
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://wa.me">
-    <link rel="stylesheet" href="styles.css">
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Taldo Studio 3D",
-        "description": "Impressão 3D personalizada para brindes, chaveiros, lembrancinhas, caixinhas, suportes e peças sob encomenda.",
-        "areaServed": "São Paulo",
-        "url": "https://www.instagram.com/taldostudio3d/",
-        "sameAs": ["https://www.instagram.com/taldostudio3d/"],
-        "telephone": "+55 11 91063-4551"
-      }
-    </script>
-  </head>
-  <body>
-    <header class="site-header" aria-label="Cabeçalho">
-      <a class="brand" href="#top" aria-label="Taldo Studio 3D">
-        <span class="brand-mark" aria-hidden="true">
-          <svg class="brand-logo" viewBox="0 0 44 44" aria-hidden="true">
-            <rect class="logo-t-bar" x="3" y="4" width="38" height="12" rx="6" />
-            <rect class="logo-t-stem logo-coral" x="15" y="17" width="14" height="7" rx="2" />
-            <rect class="logo-t-stem logo-mint" x="15" y="24" width="14" height="7" rx="2" />
-            <rect class="logo-t-stem logo-yellow" x="15" y="31" width="14" height="7" rx="3" />
-          </svg>
-        </span>
-        <span>
-          <strong>TaldoStudio <b>3D</b></strong>
-          <small>Personalizados em impressão 3D</small>
-        </span>
-      </a>
+:root {
+  --color-ink: #344057;
+  --color-muted: #6b7488;
+  --color-soft: #f4fbff;
+  --color-line: #d8ebf6;
+  --color-card: #ffffff;
+  --color-accent: #20a9e8;
+  --color-accent-strong: #0b88d6;
+  --color-coral: #ff4f43;
+  --color-mint: #42d6ad;
+  --color-yellow: #ffc21a;
+  --color-dark: #344057;
+  --shadow-soft: 0 20px 60px rgba(32, 169, 232, 0.14);
+  --shadow-card: 0 14px 34px rgba(52, 64, 87, 0.08);
+  --radius-lg: 30px;
+  --radius-md: 22px;
+  --radius-sm: 16px;
+}
 
-      <nav class="nav-links" aria-label="Navegação principal">
-        <a href="#produtos">Produtos</a>
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#galeria">Galeria</a>
-        <a href="#chaveiros">Chaveiros</a>
-      </nav>
+* {
+  box-sizing: border-box;
+}
 
-      <a
-        class="header-cta"
-        href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20Google%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-        target="_blank"
-        rel="noopener noreferrer"
-        data-whatsapp-cta
-        data-cta-label="cabecalho"
-      >
-        WhatsApp
-      </a>
-    </header>
+html {
+  scroll-behavior: smooth;
+}
 
-    <main id="top">
-      <section class="hero section-shell">
-        <div class="hero-content">
-          <span class="eyebrow">Taldo Studio 3D em São Paulo</span>
-          <h1>Impressão 3D Personalizada em São Paulo</h1>
-          <p class="hero-copy">
-            Criamos brindes, chaveiros, lembrancinhas, caixinhas, suportes e peças sob encomenda
-            com produção própria, acabamento cuidadoso e atendimento para São Paulo e todo o Brasil.
-          </p>
-          <div class="hero-actions">
-            <a
-              class="button button-primary"
-              href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20Google%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-              target="_blank"
-              rel="noopener noreferrer"
-              data-whatsapp-cta
-              data-cta-label="hero-principal"
-            >
-              Pedir Orçamento no WhatsApp
-            </a>
-            <a class="button button-secondary" href="#galeria">Ver exemplos de produtos</a>
-          </div>
-          <ul class="trust-list" aria-label="Diferenciais rápidos">
-            <li>Produção própria</li>
-            <li>Pequenas e médias quantidades</li>
-            <li>Atendimento direto</li>
-          </ul>
-        </div>
+body {
+  margin: 0;
+  color: var(--color-ink);
+  background:
+    radial-gradient(circle at 78% 2%, rgba(32, 169, 232, 0.22), transparent 30rem),
+    radial-gradient(circle at 8% 20%, rgba(66, 214, 173, 0.14), transparent 24rem),
+    radial-gradient(circle at 92% 44%, rgba(255, 194, 26, 0.16), transparent 20rem),
+    linear-gradient(180deg, #f7fcff 0%, #ffffff 48%, #f8fdff 100%);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
 
-        <div class="hero-visual" aria-label="Produtos reais da Taldo Studio 3D">
-          <div class="photo-collage">
-            <figure class="hero-photo hero-photo-main">
-              <img
-                src="assets/products/nome-personalizado-joana.webp"
-                alt="Nome personalizado Joana produzido em impressão 3D"
-                width="920"
-                height="720"
-                fetchpriority="high"
-              >
-            </figure>
-            <figure class="hero-photo hero-photo-small top">
-              <img
-                src="assets/products/chaveiros-coloridos-lote.webp"
-                alt="Chaveiros coloridos personalizados em formato de copos"
-                width="720"
-                height="720"
-              >
-            </figure>
-            <figure class="hero-photo hero-photo-small bottom">
-              <img
-                src="assets/products/suporte-organizador-verde.webp"
-                alt="Suporte organizador verde produzido sob encomenda"
-                width="720"
-                height="720"
-              >
-            </figure>
-          </div>
-          <div class="floating-card card-one">
-            <strong>Chaveiros</strong>
-            <span>com marca, nome ou tema</span>
-          </div>
-          <div class="floating-card card-two">
-            <strong>Brindes</strong>
-            <span>para eventos e empresas</span>
-          </div>
-        </div>
-      </section>
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(32, 169, 232, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 169, 232, 0.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 55%);
+}
 
-      <section class="section-shell product-section" id="produtos">
-        <div class="section-heading">
-          <span class="eyebrow">Produtos e soluções</span>
-          <h2>Peças personalizadas para marcas, eventos e ideias criativas</h2>
-          <p>
-            Produzimos peças personalizadas para festas, empresas, eventos, condomínios,
-            datas comemorativas e projetos exclusivos.
-          </p>
-        </div>
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-        <div class="product-grid">
-          <article class="product-card">
-            <span class="card-icon">01</span>
-            <h3>Chaveiros personalizados</h3>
-            <p>Modelos com nomes, logotipos, temas de festa ou personagens.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">02</span>
-            <h3>Brindes corporativos</h3>
-            <p>Peças promocionais para marcas, ações comerciais e eventos.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">03</span>
-            <h3>Lembrancinhas para festas</h3>
-            <p>Itens criativos para aniversários, datas especiais e celebrações.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">04</span>
-            <h3>Caixinhas temáticas</h3>
-            <p>Caixas e embalagens personalizadas para presentes e lembranças.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">05</span>
-            <h3>Mini craques personalizados</h3>
-            <p>Miniaturas e peças decorativas sob medida para presentes.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">06</span>
-            <h3>Peças sob encomenda</h3>
-            <p>Projetos especiais desenvolvidos a partir da sua necessidade.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">07</span>
-            <h3>Suportes e acessórios</h3>
-            <p>Organizadores, displays e itens funcionais para o dia a dia.</p>
-          </article>
-          <article class="product-card">
-            <span class="card-icon">08</span>
-            <h3>Decoração e organizadores</h3>
-            <p>Peças práticas e decorativas para casa, escritório ou loja.</p>
-          </article>
-        </div>
-      </section>
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
 
-      <section class="highlight-band">
-        <div class="section-shell highlight-content">
-          <div>
-            <span class="eyebrow">Diferenciais da Taldo Studio 3D</span>
-            <h2>Estrutura maker com olhar comercial</h2>
-          </div>
-          <p>
-            Unimos criatividade, técnica e visão de produto para transformar ideias em peças
-            personalizadas, funcionais e prontas para uso.
-          </p>
-          <a
-            class="button button-dark"
-            href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20Google%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-            target="_blank"
-            rel="noopener noreferrer"
-            data-whatsapp-cta
-            data-cta-label="diferenciais"
-          >
-            Solicitar Orçamento
-          </a>
-        </div>
-      </section>
+.section-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin-inline: auto;
+}
 
-      <section class="section-shell benefits-section" id="diferenciais">
-        <div class="section-heading compact">
-          <span class="eyebrow">Diferenciais</span>
-          <h2>O que faz diferença no seu projeto</h2>
-        </div>
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1160px, calc(100% - 24px));
+  margin: 12px auto 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(216, 235, 246, 0.95);
+  border-radius: 999px;
+  box-shadow: 0 10px 35px rgba(32, 169, 232, 0.1);
+  backdrop-filter: blur(18px);
+}
 
-        <div class="benefits-grid">
-          <div class="benefit-item">
-            <strong>Produção própria</strong>
-            <span>
-              Controle de prazo, acabamento e personalização do início ao fim, com atenção aos
-              detalhes de cada pedido.
-            </span>
-          </div>
-          <div class="benefit-item">
-            <strong>Personalização real</strong>
-            <span>
-              Criamos peças por tema, marca, nome, cor, referência ou ideia, sempre de acordo com a
-              necessidade do cliente.
-            </span>
-          </div>
-          <div class="benefit-item">
-            <strong>Produção em São Paulo, atendimento para todo o Brasil</strong>
-            <span>
-              Atendimento simples pelo WhatsApp para alinhar detalhes, referências, quantidades e
-              orçamento.
-            </span>
-          </div>
-          <div class="benefit-item">
-            <strong>Peças sob encomenda</strong>
-            <span>
-              Brindes, lembrancinhas, chaveiros, caixinhas, suportes, organizadores e produtos
-              exclusivos feitos conforme cada projeto.
-            </span>
-          </div>
-        </div>
-      </section>
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
 
-      <section class="section-shell process-section" id="como-funciona">
-        <div class="section-heading">
-          <span class="eyebrow">Como funciona</span>
-          <h2>Da sua ideia ao produto pronto</h2>
-          <p>Um processo direto para facilitar pedidos individuais, eventos e produções em lote.</p>
-        </div>
+.brand-mark {
+  position: relative;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  overflow: visible;
+}
 
-        <ol class="process-list">
-          <li>
-            <span>1</span>
-            <h3>Envie sua ideia</h3>
-            <p>Mande uma referência, desenho, foto, tema ou necessidade pelo WhatsApp.</p>
-          </li>
-          <li>
-            <span>2</span>
-            <h3>Receba orientacao</h3>
-            <p>Indicamos possibilidades, materiais, prazo e valores para produzir.</p>
-          </li>
-          <li>
-            <span>3</span>
-            <h3>Produzimos em 3D</h3>
-            <p>A peça é preparada e impressa com cuidado na nossa estrutura própria.</p>
-          </li>
-          <li>
-            <span>4</span>
-            <h3>Produto pronto</h3>
-            <p>Você recebe um item personalizado, funcional e pronto para usar ou presentear.</p>
-          </li>
-        </ol>
-      </section>
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(32, 169, 232, 0.18));
+}
 
-      <section class="audience-section">
-        <div class="section-shell audience-content">
-          <div class="section-heading compact">
-            <span class="eyebrow">Para quem é</span>
-            <h2>Atendemos pessoas, empresas e eventos</h2>
-            <p>
-              Desde pedidos individuais até produções em pequena e média escala para empresas,
-              eventos e ações promocionais.
-            </p>
-          </div>
-          <div class="audience-tags" aria-label="Públicos atendidos">
-            <span>Festas infantis</span>
-            <span>Empresas</span>
-            <span>Lojas</span>
-            <span>Profissionais autônomos</span>
-            <span>Eventos</span>
-            <span>Condomínios</span>
-            <span>Datas comemorativas</span>
-            <span>Presentes personalizados</span>
-            <span>Ações promocionais</span>
-          </div>
-        </div>
-      </section>
+.logo-t-bar {
+  fill: var(--color-accent);
+}
 
-      <section class="section-shell gallery-section" id="galeria">
-        <div class="section-heading">
-          <span class="eyebrow">Galeria de produtos</span>
-          <h2>Variedade para inspirar seu pedido</h2>
-          <p>
-            Uma seleção de produtos reais para mostrar possibilidades de personalização, acabamento,
-            cores e aplicações. Clique em uma foto para ampliar.
-          </p>
-        </div>
+.logo-t-stem.logo-coral {
+  fill: var(--color-coral);
+}
 
-        <div class="gallery-grid gallery-grid-keychains">
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-personalizado-azul.webp"
-              alt="Chaveiro azul personalizado produzido em impressão 3D"
-              width="720"
-              height="720"
-              fetchpriority="high"
-            >
-            <figcaption>Chaveiro personalizado azul</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiros-coloridos-lote.webp"
-              alt="Lote de chaveiros coloridos em impressão 3D"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros coloridos em lote</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/nome-personalizado-joana.webp"
-              alt="Nome Joana personalizado em impressão 3D"
-              width="920"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Nome personalizado</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/acessorios-personalizados.webp"
-              alt="Acessórios personalizados em cores pastel"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Acessórios em cores variadas</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/peca-funcional-azul.webp"
-              alt="Peça temática azul produzida sob encomenda em impressão 3D"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Peça temática personalizada</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/miniatura-decorativa.webp"
-              alt="Miniatura decorativa personalizada impressa em 3D"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Lembrancinha personalizada</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/decoracao-dragao.webp"
-              alt="Dragões decorativos articulados em impressão 3D"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Miniatura temática</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/suporte-organizador-verde.webp"
-              alt="Suporte organizador verde personalizado"
-              width="720"
-              height="720"
-              loading="lazy"
-            >
-            <figcaption>Peça funcional personalizada</figcaption>
-          </figure>
-        </div>
+.logo-t-stem.logo-mint {
+  fill: var(--color-mint);
+}
 
-        <div class="gallery-cta">
-          <p>Quer um produto com seu nome, logo ou tema?</p>
-          <a
-            class="button button-primary"
-            href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-            target="_blank"
-            rel="noopener noreferrer"
-            data-whatsapp-cta
-            data-cta-label="galeria-produtos"
-          >
-            Pedir orçamento no WhatsApp
-          </a>
-        </div>
-      </section>
+.logo-t-stem.logo-yellow {
+  fill: var(--color-yellow);
+}
 
-      <section class="section-shell gallery-section" id="chaveiros">
-        <div class="section-heading">
-          <span class="eyebrow">Galeria de chaveiros</span>
-          <h2>Opções personalizadas para inspirar seu pedido</h2>
-          <p>
-            Exemplos reais de chaveiros personalizados produzidos na Taldo Studio 3D. Clique em
-            uma foto para ampliar.
-          </p>
-        </div>
+.brand b {
+  color: var(--color-accent);
+}
 
-        <div class="gallery-grid gallery-grid-keychains gallery-grid-keychains-only">
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-flamengo-escudo.webp"
-              alt="Chaveiro escudo do Flamengo produzido em impressão 3D"
-              width="900"
-              height="1200"
-              fetchpriority="high"
-            >
-            <figcaption>Chaveiro escudo do Flamengo</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-alien-verde.webp"
-              alt="Chaveiro alienígena verde produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro alienígena verde</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-mario-interrogacao.webp"
-              alt="Chaveiro bloco de interrogação Mario produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro bloco de interrogação Mario</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-estadio-flamengo.webp"
-              alt="Chaveiros estádio e escudo Flamengo produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros estádio e escudo Flamengo</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-estadio-spfc.webp"
-              alt="Chaveiros estádio e escudo SPFC produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros estádio e escudo SPFC</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-estadio-corinthians.webp"
-              alt="Chaveiros estádio e escudo Corinthians produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros estádio e escudo Corinthians</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-estrela-fidget.webp"
-              alt="Chaveiro estrela fidget produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro estrela fidget</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-casa-de-papel.webp"
-              alt="Chaveiros La Casa de Papel produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros La Casa de Papel</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-polvos-coloridos.webp"
-              alt="Chaveiros polvos coloridos produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros polvos coloridos</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-gato-preto.webp"
-              alt="Chaveiro gato preto produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro gato preto</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-homem-aranha.webp"
-              alt="Chaveiro Homem-Aranha produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Homem-Aranha</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-baby-groot.webp"
-              alt="Chaveiro Baby Groot produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Baby Groot</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-martelo-thor.webp"
-              alt="Chaveiro martelo do Thor produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro martelo do Thor</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-stormtrooper.webp"
-              alt="Chaveiro Stormtrooper produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Stormtrooper</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-capivara-tartaruga.webp"
-              alt="Chaveiro capivara com tartaruga produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro capivara com tartaruga</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-pomba.webp"
-              alt="Chaveiro pomba produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro pomba</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-tubarao.webp"
-              alt="Chaveiro tubarão produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro tubarão</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-princesa-peach-2.webp"
-              alt="Chaveiro Princesa Peach produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Princesa Peach</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-homem-de-ferro.webp"
-              alt="Chaveiro Homem de Ferro produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Homem de Ferro</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-cone-transito.webp"
-              alt="Chaveiro cone de trânsito produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro cone de trânsito</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiros-copos-stanley.webp"
-              alt="Chaveiros mini copos Stanley produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiros mini copos Stanley</figcaption>
-          </figure>
-          <figure class="gallery-card gallery-card-clickable" data-lightbox>
-            <img
-              src="assets/products/chaveiro-pokebola.webp"
-              alt="Chaveiro Pokébola produzido em impressão 3D"
-              width="900"
-              height="1200"
-              loading="lazy"
-            >
-            <figcaption>Chaveiro Pokébola</figcaption>
-          </figure>
-        </div>
+.brand strong,
+.brand small {
+  display: block;
+}
 
-        <div class="gallery-cta">
-          <p>Quer um chaveiro com seu nome, logo ou tema?</p>
-          <a
-            class="button button-primary"
-            href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento%20de%20chaveiros%20personalizados."
-            target="_blank"
-            rel="noopener noreferrer"
-            data-whatsapp-cta
-            data-cta-label="galeria-chaveiros"
-          >
-            Pedir orçamento no WhatsApp
-          </a>
-        </div>
-      </section>
+.brand strong {
+  font-size: 0.98rem;
+  line-height: 1.1;
+}
 
-      <section class="final-cta">
-        <div class="section-shell final-cta-content">
-          <span class="eyebrow">Vamos produzir sua ideia?</span>
-          <h2>Tem uma ideia ou precisa de um produto personalizado?</h2>
-          <p>Envie sua referência e receba um orçamento pelo WhatsApp.</p>
-          <div class="final-actions">
-            <a
-              class="button button-primary"
-              href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20Google%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-              target="_blank"
-              rel="noopener noreferrer"
-              data-whatsapp-cta
-              data-cta-label="chamada-final"
-            >
-              Pedir Orçamento Agora
-            </a>
-            <a
-              class="instagram-link"
-              href="https://www.instagram.com/taldostudio3d/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ver Instagram
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
+.brand small {
+  color: var(--color-muted);
+  font-size: 0.76rem;
+}
 
-    <footer class="site-footer">
-      <div class="section-shell footer-content">
-        <strong>Taldo Studio 3D</strong>
-        <span>Impressão 3D personalizada em São Paulo</span>
-        <a
-          href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20Google%20e%20quero%20um%20or%C3%A7amento%20de%20impress%C3%A3o%203D."
-          target="_blank"
-          rel="noopener noreferrer"
-          data-whatsapp-cta
-          data-cta-label="rodape"
-        >
-          Falar com a Taldo Studio 3D
-        </a>
-      </div>
-    </footer>
+.nav-links {
+  display: flex;
+  gap: 18px;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
 
-    <div class="lightbox" id="lightbox" hidden aria-hidden="true">
-      <button class="lightbox-close" type="button" aria-label="Fechar imagem ampliada">×</button>
-      <figure class="lightbox-content">
-        <img src="" alt="">
-        <figcaption></figcaption>
-      </figure>
-    </div>
+.nav-links a:hover {
+  color: var(--color-ink);
+}
 
-    <script src="script.js" defer></script>
-  </body>
-</html>
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  color: #fff;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(32, 169, 232, 0.22);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+  gap: 56px;
+  align-items: center;
+  min-height: calc(100svh - 82px);
+  padding: 72px 0 88px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-bottom: 16px;
+  color: var(--color-accent-strong);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 10px;
+  height: 10px;
+  content: "";
+  background: var(--color-yellow);
+  border: 2px solid var(--color-dark);
+  border-radius: 50%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 680px;
+  margin-bottom: 22px;
+  font-size: clamp(2.65rem, 7.5vw, 5.7rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 4.4vw, 3.55rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.hero-copy {
+  max-width: 650px;
+  margin-bottom: 28px;
+  color: #3b3b3b;
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+}
+
+.hero-actions,
+.final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  font-weight: 900;
+  border: 2px solid var(--color-dark);
+  border-radius: 999px;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  box-shadow: 6px 6px 0 var(--color-dark);
+}
+
+.button-primary:hover {
+  box-shadow: 8px 8px 0 var(--color-dark);
+}
+
+.button-secondary {
+  color: var(--color-accent-strong);
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(32, 169, 232, 0.38);
+}
+
+.button-dark {
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-coral), #ff705f);
+  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.28);
+}
+
+.trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 28px 0 0;
+  list-style: none;
+}
+
+.trust-list li {
+  padding: 9px 12px;
+  color: var(--color-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 560px;
+  isolation: isolate;
+}
+
+.hero-visual::before {
+  position: absolute;
+  inset: 42px 6% 22px;
+  z-index: -1;
+  content: "";
+  background:
+    radial-gradient(circle at 22% 24%, rgba(255, 194, 26, 0.92), transparent 7rem),
+    linear-gradient(145deg, rgba(32, 169, 232, 0.95), rgba(66, 214, 173, 0.88));
+  border: 2px solid var(--color-dark);
+  border-radius: 46px;
+  box-shadow: 18px 18px 0 var(--color-dark);
+  transform: rotate(2deg);
+}
+
+.photo-collage {
+  position: absolute;
+  inset: 86px 10% 48px;
+}
+
+.hero-photo {
+  position: absolute;
+  display: grid;
+  padding: 10px;
+  place-items: center;
+  margin: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, rgba(32, 169, 232, 0.28), rgba(66, 214, 173, 0.22)) border-box;
+  border: 2px solid var(--color-dark);
+  box-shadow: 10px 10px 0 rgba(52, 64, 87, 0.28);
+}
+
+.hero-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: inherit;
+  object-fit: contain;
+}
+
+.hero-photo-main {
+  inset: 54px 24% 54px 0;
+  border-radius: 34px;
+  transform: rotate(-3deg);
+}
+
+.hero-photo-small {
+  right: 0;
+  width: 34%;
+  height: 30%;
+  border-radius: 26px;
+}
+
+.hero-photo-small.top {
+  top: 0;
+  transform: rotate(4deg);
+}
+
+.hero-photo-small.bottom {
+  bottom: 0;
+  transform: rotate(-4deg);
+}
+
+.printer-card {
+  position: absolute;
+  inset: 92px 13% auto;
+  padding: 24px;
+  background: var(--color-dark);
+  border: 2px solid var(--color-dark);
+  border-radius: 34px;
+  box-shadow: var(--shadow-soft);
+}
+
+.printer-top {
+  width: 64%;
+  height: 32px;
+  margin: 0 auto 18px;
+  background: #f8f8f8;
+  border-radius: 12px 12px 4px 4px;
+}
+
+.printer-window {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    #303030;
+  background-size: 28px 28px;
+  border: 2px solid #454545;
+  border-radius: 22px;
+}
+
+.print-line {
+  position: absolute;
+  right: 12%;
+  left: 12%;
+  height: 8px;
+  background: #f8f8f8;
+  border-radius: 999px;
+}
+
+.line-one {
+  top: 52px;
+}
+
+.line-two {
+  top: 74px;
+  width: 50%;
+}
+
+.line-three {
+  top: 96px;
+  width: 62%;
+}
+
+.printed-piece {
+  position: absolute;
+  right: 28%;
+  bottom: 30px;
+  left: 28%;
+  height: 86px;
+  background: linear-gradient(
+    180deg,
+    var(--color-accent) 0 28%,
+    var(--color-coral) 28% 54%,
+    var(--color-mint) 54% 78%,
+    var(--color-yellow) 78% 100%
+  );
+  border: 2px solid var(--color-dark);
+  border-radius: 20px 20px 10px 10px;
+  box-shadow: 0 16px 0 rgba(0, 0, 0, 0.16);
+}
+
+.printer-base {
+  height: 42px;
+  margin-top: 18px;
+  background: #f8f8f8;
+  border-radius: 6px 6px 18px 18px;
+}
+
+.floating-card {
+  position: absolute;
+  z-index: 2;
+  max-width: 190px;
+  padding: 18px;
+  background: #fff;
+  border: 2px solid var(--color-dark);
+  border-radius: 22px;
+  box-shadow: 8px 8px 0 var(--color-dark);
+}
+
+.floating-card strong,
+.floating-card span {
+  display: block;
+}
+
+.floating-card strong {
+  margin-bottom: 4px;
+  font-size: 1.05rem;
+}
+
+.floating-card span {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.card-one {
+  top: 54px;
+  left: 0;
+}
+
+.card-two {
+  right: 0;
+  bottom: 78px;
+}
+
+.product-section,
+.benefits-section,
+.process-section,
+.gallery-section {
+  padding: 88px 0;
+}
+
+.section-heading {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-heading.compact {
+  max-width: 640px;
+}
+
+.section-heading p {
+  color: var(--color-muted);
+  font-size: 1.08rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.product-card,
+.benefit-item,
+.process-list li,
+.gallery-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+}
+
+.product-card {
+  min-height: 220px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.product-card:hover {
+  border-color: rgba(32, 169, 232, 0.72);
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  display: inline-grid;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 26px;
+  place-items: center;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  border: 2px solid var(--color-dark);
+  border-radius: 15px;
+}
+
+.product-card p,
+.benefit-item span,
+.process-list p {
+  color: var(--color-muted);
+}
+
+.highlight-band {
+  color: #fff;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(32, 169, 232, 0.42), transparent 24rem),
+    radial-gradient(circle at 88% 30%, rgba(255, 79, 67, 0.32), transparent 22rem),
+    var(--color-dark);
+}
+
+.highlight-content {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr auto;
+  gap: 34px;
+  align-items: center;
+  padding: 58px 0;
+}
+
+.highlight-content .eyebrow {
+  color: #bfefff;
+}
+
+.highlight-content p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.benefit-item {
+  padding: 24px;
+  border-radius: var(--radius-md);
+}
+
+.benefit-item::before {
+  display: block;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 24px;
+  content: "";
+  background:
+    linear-gradient(90deg, var(--color-dark) 2px, transparent 2px),
+    linear-gradient(var(--color-dark) 2px, transparent 2px),
+    linear-gradient(135deg, var(--color-mint), var(--color-accent));
+  background-size: 12px 12px;
+  border: 2px solid var(--color-dark);
+  border-radius: 12px;
+}
+
+.benefit-item strong,
+.benefit-item span {
+  display: block;
+}
+
+.benefit-item strong {
+  margin-bottom: 8px;
+  font-size: 1.04rem;
+}
+
+.process-section {
+  padding-top: 22px;
+}
+
+.process-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: process;
+}
+
+.process-list li {
+  position: relative;
+  min-height: 238px;
+  padding: 26px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.process-list li::after {
+  position: absolute;
+  right: -26px;
+  bottom: -50px;
+  color: rgba(32, 169, 232, 0.16);
+  font-size: 8rem;
+  font-weight: 900;
+  line-height: 1;
+  content: attr(value);
+}
+
+.process-list span {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 28px;
+  place-items: center;
+  color: #fff;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  border-radius: 50%;
+}
+
+.audience-section {
+  padding: 72px 0;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(66, 214, 173, 0.13), transparent 22rem),
+    var(--color-soft);
+  border-block: 1px solid var(--color-line);
+}
+
+.audience-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 46px;
+  align-items: center;
+}
+
+.audience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.audience-tags span {
+  padding: 12px 15px;
+  font-weight: 800;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(23, 23, 23, 0.05);
+}
+
+.gallery-grid-keychains {
+  grid-auto-rows: 240px;
+}
+
+.gallery-grid-keychains .gallery-card {
+  min-height: 240px;
+}
+
+.gallery-grid-keychains-only {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: none;
+}
+
+.gallery-scroll-hint {
+  margin: 0 0 14px;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.keychain-carousel {
+  max-width: 520px;
+  margin: 0 auto 8px;
+}
+
+.keychain-carousel-stage {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(32, 169, 232, 0.08), transparent 12rem),
+    #ffffff;
+  border: 2px solid var(--color-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: 10px 10px 0 rgba(52, 64, 87, 0.22);
+}
+
+.keychain-carousel-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 18px;
+  margin: 0;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.keychain-carousel-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+}
+
+.keychain-carousel-slide img {
+  width: 100%;
+  max-height: 100%;
+  border-radius: calc(var(--radius-lg) - 12px);
+  object-fit: contain;
+}
+
+.keychain-carousel-caption {
+  margin: 16px 0 10px;
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.keychain-carousel-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.keychain-carousel-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  background: var(--color-line);
+  border: 2px solid var(--color-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.keychain-carousel-dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keychain-carousel-slide {
+    transition: none;
+  }
+}
+
+.keychain-preview-scroll {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.keychain-preview-scroll .gallery-card {
+  flex: 0 0 min(280px, 78vw);
+  min-height: 280px;
+  scroll-snap-align: start;
+}
+
+.catalog-page {
+  padding: 48px 0 88px;
+}
+
+.catalog-page h1 {
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.gallery-grid-catalog {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 280px;
+}
+
+.gallery-card-clickable {
+  cursor: zoom-in;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.gallery-card-clickable:hover {
+  border-color: rgba(32, 169, 232, 0.72);
+  transform: translateY(-3px);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(52, 64, 87, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-content {
+  display: grid;
+  gap: 12px;
+  width: min(920px, 100%);
+  margin: 0;
+  padding: 14px;
+  background: #fff;
+  border: 2px solid var(--color-dark);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.lightbox-content img {
+  width: 100%;
+  max-height: min(72vh, 720px);
+  border-radius: calc(var(--radius-md) - 8px);
+  object-fit: contain;
+}
+
+.lightbox-content figcaption {
+  color: var(--color-ink);
+  font-weight: 800;
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: #fff;
+  font-size: 1.8rem;
+  line-height: 1;
+  background: rgba(52, 64, 87, 0.92);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.gallery-cta {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  margin-top: 36px;
+  text-align: center;
+}
+
+.gallery-cta p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.gallery-cta .button {
+  min-width: min(100%, 320px);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 220px;
+  gap: 16px;
+}
+
+.gallery-card {
+  position: relative;
+  display: grid;
+  padding: 12px;
+  place-items: center;
+  min-height: 220px;
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(32, 169, 232, 0.08), transparent 12rem),
+    #ffffff;
+  border-radius: var(--radius-lg);
+}
+
+.gallery-card.large {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.gallery-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: calc(var(--radius-lg) - 10px);
+  object-fit: contain;
+  transition: transform 240ms ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.025);
+}
+
+.gallery-visual {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.72), transparent 7rem),
+    linear-gradient(135deg, var(--color-accent), var(--color-mint));
+}
+
+.gallery-visual::before,
+.gallery-visual::after {
+  position: absolute;
+  content: "";
+  border: 2px solid rgba(52, 64, 87, 0.82);
+  box-shadow: 10px 10px 0 rgba(52, 64, 87, 0.12);
+}
+
+.gallery-visual.keychains::before {
+  top: 22%;
+  left: 18%;
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border-radius: 34px;
+  transform: rotate(-10deg);
+}
+
+.gallery-visual.keychains::after {
+  right: 16%;
+  bottom: 18%;
+  width: 170px;
+  height: 80px;
+  background: var(--color-coral);
+  border-radius: 999px;
+}
+
+.gallery-visual.boxes {
+  background: linear-gradient(135deg, var(--color-dark), #4c5c78);
+}
+
+.gallery-visual.boxes::before {
+  top: 26%;
+  left: 26%;
+  width: 100px;
+  height: 100px;
+  background: var(--color-yellow);
+  border-radius: 22px;
+}
+
+.gallery-visual.party {
+  background: linear-gradient(135deg, #eaf8ff, var(--color-accent));
+}
+
+.gallery-visual.party::before {
+  top: 30%;
+  left: 18%;
+  width: 64px;
+  height: 120px;
+  background: #fff;
+  border-radius: 40px 40px 14px 14px;
+}
+
+.gallery-visual.party::after {
+  right: 16%;
+  bottom: 22%;
+  width: 88px;
+  height: 88px;
+  background: var(--color-yellow);
+  border-radius: 50%;
+}
+
+.gallery-visual.batch {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px),
+    var(--color-mint);
+  background-size: 30px 30px;
+}
+
+.gallery-visual.batch::before {
+  top: 22%;
+  left: 16%;
+  width: 132px;
+  height: 92px;
+  background: #fff;
+  border-radius: 18px;
+}
+
+.gallery-visual.printer {
+  background: linear-gradient(135deg, var(--color-dark), #253149);
+}
+
+.gallery-visual.printer::before {
+  top: 24%;
+  left: 18%;
+  width: 140px;
+  height: 110px;
+  background: #303030;
+  border-color: var(--color-accent);
+  border-radius: 20px;
+}
+
+.gallery-card figcaption {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  padding: 13px 14px;
+  color: #fff;
+  font-weight: 900;
+  background: rgba(52, 64, 87, 0.84);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.gallery-grid.gallery-grid-keychains-only {
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 20px;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  height: auto;
+  min-height: 0;
+  padding: 14px 12px 12px;
+  overflow: visible;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card img {
+  display: block;
+  flex: 0 0 auto;
+  width: min(72%, 132px);
+  height: 132px;
+  margin: 0 auto;
+  padding: 10px;
+  object-fit: contain;
+  object-position: center center;
+  background: #f5f7fa;
+  border: 1px solid rgba(52, 64, 87, 0.14);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card:hover img {
+  transform: none;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card-clickable:hover {
+  transform: none;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card figcaption {
+  position: static;
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--color-ink);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  background: rgba(52, 64, 87, 0.08);
+  border-radius: 12px;
+  backdrop-filter: none;
+}
+
+.final-cta {
+  padding: 94px 0;
+  color: #fff;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(32, 169, 232, 0.45), transparent 22rem),
+    radial-gradient(circle at 18% 40%, rgba(66, 214, 173, 0.26), transparent 20rem),
+    radial-gradient(circle at 82% 54%, rgba(255, 79, 67, 0.22), transparent 18rem),
+    var(--color-dark);
+}
+
+.final-cta-content {
+  max-width: 850px;
+}
+
+.final-cta .eyebrow {
+  margin-inline: auto;
+  color: #bfefff;
+}
+
+.final-cta p {
+  margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.12rem;
+}
+
+.final-actions {
+  justify-content: center;
+}
+
+.instagram-link {
+  color: #fff;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.site-footer {
+  padding: 24px 0 32px;
+  color: #d8d8d8;
+  background: var(--color-dark);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 22px;
+}
+
+.footer-content a {
+  color: #bfefff;
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero,
+  .audience-content,
+  .highlight-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    gap: 22px;
+    min-height: auto;
+    padding-top: 52px;
+  }
+
+  .hero-visual {
+    min-height: 480px;
+  }
+
+  .product-grid,
+  .benefits-grid,
+  .process-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .highlight-content {
+    text-align: left;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid-catalog {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid-keychains-only {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid.gallery-grid-keychains-only .gallery-card img {
+    width: min(68%, 118px);
+    height: 118px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-shell {
+    width: min(100% - 24px, 1120px);
+  }
+
+  .site-header {
+    width: calc(100% - 16px);
+    margin-top: 8px;
+    padding: 9px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .brand-mark {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-cta {
+    min-height: 40px;
+    padding-inline: 14px;
+    font-size: 0.88rem;
+  }
+
+  .hero {
+    padding: 44px 0 62px;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 58px;
+    padding-inline: 18px;
+    text-align: center;
+  }
+
+  .hero-actions,
+  .final-actions {
+    width: 100%;
+  }
+
+  .trust-list li {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .hero-visual {
+    min-height: 410px;
+  }
+
+  .hero-visual::before {
+    inset: 36px 4% 18px;
+    border-radius: 34px;
+    box-shadow: 10px 10px 0 var(--color-dark);
+  }
+
+  .photo-collage {
+    inset: 78px 8% 56px;
+  }
+
+  .hero-photo {
+    box-shadow: 6px 6px 0 rgba(52, 64, 87, 0.3);
+  }
+
+  .hero-photo-main {
+    inset: 44px 20% 44px 0;
+    border-radius: 24px;
+  }
+
+  .hero-photo-small {
+    width: 34%;
+    height: 28%;
+    border-radius: 20px;
+  }
+
+  .printer-card {
+    inset: 82px 7% auto;
+    padding: 16px;
+    border-radius: 26px;
+  }
+
+  .printer-window {
+    height: 190px;
+  }
+
+  .floating-card {
+    max-width: 160px;
+    padding: 14px;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--color-dark);
+  }
+
+  .card-one {
+    top: 34px;
+  }
+
+  .card-two {
+    bottom: 38px;
+  }
+
+  .product-section,
+  .benefits-section,
+  .process-section,
+  .gallery-section {
+    padding: 64px 0;
+  }
+
+  .product-grid,
+  .benefits-grid,
+  .process-list,
+  .gallery-grid,
+  .gallery-grid-catalog {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid-keychains-only {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid.gallery-grid-keychains-only .gallery-card img {
+    width: min(64%, 108px);
+    height: 108px;
+  }
+
+  .product-card {
+    min-height: auto;
+  }
+
+  .highlight-content {
+    padding: 48px 0;
+  }
+
+  .gallery-grid {
+    grid-auto-rows: 235px;
+  }
+
+  .gallery-card.large {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+
+  .audience-section {
+    padding: 56px 0;
+  }
+
+  .audience-tags span {
+    width: 100%;
+    text-align: center;
+  }
+
+  .final-cta {
+    padding: 72px 0;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
