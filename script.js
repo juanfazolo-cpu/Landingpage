@@ -25,4 +25,53 @@
       }
     });
   });
+
+  const lightbox = document.getElementById("lightbox");
+
+  if (lightbox) {
+    const lightboxImage = lightbox.querySelector(".lightbox-content img");
+    const lightboxCaption = lightbox.querySelector(".lightbox-content figcaption");
+    const closeButton = lightbox.querySelector(".lightbox-close");
+    const galleryCards = document.querySelectorAll("[data-lightbox]");
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function openLightbox(card) {
+      const image = card.querySelector("img");
+      const caption = card.querySelector("figcaption");
+
+      if (!image) {
+        return;
+      }
+
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = caption ? caption.textContent : image.alt;
+      lightbox.hidden = false;
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    galleryCards.forEach((card) => {
+      card.addEventListener("click", () => openLightbox(card));
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !lightbox.hidden) {
+        closeLightbox();
+      }
+    });
+  }
 })();
