@@ -60,7 +60,7 @@
       <nav class="nav-links" aria-label="Navegação principal">
         <a href="#produtos">Produtos</a>
         <a href="#como-funciona">Como funciona</a>
-        <a href="#chaveiros">Chaveiros</a>
+        <a href="#galeria">Chaveiros</a>
       </nav>
 
       <a
@@ -318,25 +318,23 @@
           <span class="eyebrow">Galeria de chaveiros</span>
           <h2>Opções personalizadas para inspirar seu pedido</h2>
           <p>
-            Arraste para o lado e veja vários exemplos. Na galeria completa você confere todas as
-            fotos em tamanho maior.
+            Veja exemplos reais de chaveiros, nomes, temas e cores. Clique em uma foto para
+            ampliar.
           </p>
         </div>
 
-        <p class="gallery-scroll-hint">← Arraste para ver mais modelos →</p>
-
-        <div class="keychain-preview-scroll" aria-label="Prévia de chaveiros">
-          <figure class="gallery-card">
+        <div class="gallery-grid gallery-grid-keychains">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/chaveiro-personalizado-azul.webp"
               alt="Chaveiro azul personalizado produzido em impressão 3D"
               width="720"
               height="720"
-              loading="lazy"
+              fetchpriority="high"
             >
-            <figcaption>Chaveiro azul</figcaption>
+            <figcaption>Chaveiro personalizado azul</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/chaveiros-coloridos-lote.webp"
               alt="Lote de chaveiros coloridos em impressão 3D"
@@ -344,9 +342,9 @@
               height="720"
               loading="lazy"
             >
-            <figcaption>Lote colorido</figcaption>
+            <figcaption>Chaveiros coloridos em lote</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/nome-personalizado-joana.webp"
               alt="Nome Joana personalizado em impressão 3D"
@@ -356,7 +354,7 @@
             >
             <figcaption>Nome personalizado</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/acessorios-personalizados.webp"
               alt="Acessórios personalizados em cores pastel"
@@ -364,9 +362,9 @@
               height="720"
               loading="lazy"
             >
-            <figcaption>Cores variadas</figcaption>
+            <figcaption>Acessórios em cores variadas</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/peca-funcional-azul.webp"
               alt="Peça temática azul produzida sob encomenda em impressão 3D"
@@ -374,9 +372,9 @@
               height="720"
               loading="lazy"
             >
-            <figcaption>Temático</figcaption>
+            <figcaption>Chaveiro temático personalizado</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/miniatura-decorativa.webp"
               alt="Miniatura decorativa personalizada impressa em 3D"
@@ -384,9 +382,9 @@
               height="720"
               loading="lazy"
             >
-            <figcaption>Lembrancinha</figcaption>
+            <figcaption>Lembrancinha personalizada</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/decoracao-dragao.webp"
               alt="Dragões decorativos articulados em impressão 3D"
@@ -396,7 +394,7 @@
             >
             <figcaption>Miniatura temática</figcaption>
           </figure>
-          <figure class="gallery-card">
+          <figure class="gallery-card gallery-card-clickable" data-lightbox>
             <img
               src="assets/products/suporte-organizador-verde.webp"
               alt="Suporte organizador verde personalizado"
@@ -404,15 +402,14 @@
               height="720"
               loading="lazy"
             >
-            <figcaption>Peça funcional</figcaption>
+            <figcaption>Peça funcional personalizada</figcaption>
           </figure>
         </div>
 
         <div class="gallery-cta">
-          <p>Veja todos os modelos na galeria completa de chaveiros.</p>
-          <a class="button button-primary" href="#chaveiros">Ver todos os chaveiros</a>
+          <p>Quer um chaveiro com seu nome, logo ou tema?</p>
           <a
-            class="button button-secondary"
+            class="button button-primary"
             href="https://wa.me/5511910634551?text=Ol%C3%A1,%20vim%20pelo%20site%20e%20quero%20um%20or%C3%A7amento%20de%20chaveiros%20personalizados."
             target="_blank"
             rel="noopener noreferrer"
