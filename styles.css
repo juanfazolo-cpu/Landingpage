@@ -703,6 +703,113 @@ h3 {
   min-height: 240px;
 }
 
+.gallery-scroll-hint {
+  margin: 0 0 14px;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.keychain-preview-scroll {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.keychain-preview-scroll .gallery-card {
+  flex: 0 0 min(280px, 78vw);
+  min-height: 280px;
+  scroll-snap-align: start;
+}
+
+.catalog-page {
+  padding: 48px 0 88px;
+}
+
+.catalog-page h1 {
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.gallery-grid-catalog {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 280px;
+}
+
+.gallery-card-clickable {
+  cursor: zoom-in;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.gallery-card-clickable:hover {
+  border-color: rgba(32, 169, 232, 0.72);
+  transform: translateY(-3px);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(52, 64, 87, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-content {
+  display: grid;
+  gap: 12px;
+  width: min(920px, 100%);
+  margin: 0;
+  padding: 14px;
+  background: #fff;
+  border: 2px solid var(--color-dark);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.lightbox-content img {
+  width: 100%;
+  max-height: min(72vh, 720px);
+  border-radius: calc(var(--radius-md) - 8px);
+  object-fit: contain;
+}
+
+.lightbox-content figcaption {
+  color: var(--color-ink);
+  font-weight: 800;
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: #fff;
+  font-size: 1.8rem;
+  line-height: 1;
+  background: rgba(52, 64, 87, 0.92);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .gallery-cta {
   display: grid;
   gap: 18px;
@@ -970,6 +1077,10 @@ h3 {
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .gallery-grid-catalog {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1088,7 +1199,8 @@ h3 {
   .product-grid,
   .benefits-grid,
   .process-list,
-  .gallery-grid {
+  .gallery-grid,
+  .gallery-grid-catalog {
     grid-template-columns: 1fr;
   }
 
