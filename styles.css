@@ -23,6 +23,11 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+
+[id] {
+  scroll-margin-top: 92px;
 }
 
 body {
@@ -705,43 +710,7 @@ h3 {
 
 .gallery-grid-keychains-only {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: auto;
   max-width: none;
-}
-
-.gallery-grid-keychains-only .gallery-card {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 10px;
-  min-height: 260px;
-  padding: 12px 12px 14px;
-}
-
-.gallery-grid-keychains-only .gallery-card img {
-  flex: 1 1 auto;
-  width: 100%;
-  min-height: 170px;
-  max-height: 190px;
-  object-fit: contain;
-  object-position: center center;
-}
-
-.gallery-grid-keychains-only .gallery-card figcaption {
-  position: static;
-  flex-shrink: 0;
-  width: 100%;
-  margin: 0;
-  padding: 10px 12px;
-  color: var(--color-ink);
-  font-size: 0.86rem;
-  font-weight: 800;
-  line-height: 1.3;
-  text-align: center;
-  background: rgba(52, 64, 87, 0.08);
-  border-radius: 12px;
-  backdrop-filter: none;
 }
 
 .gallery-scroll-hint {
@@ -1102,6 +1071,63 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
+.gallery-grid.gallery-grid-keychains-only {
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 20px;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  height: auto;
+  min-height: 0;
+  padding: 14px 12px 12px;
+  overflow: visible;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card img {
+  display: block;
+  flex: 0 0 auto;
+  width: min(72%, 132px);
+  height: 132px;
+  margin: 0 auto;
+  padding: 10px;
+  object-fit: contain;
+  object-position: center center;
+  background: #f5f7fa;
+  border: 1px solid rgba(52, 64, 87, 0.14);
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card:hover img {
+  transform: none;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card-clickable:hover {
+  transform: none;
+}
+
+.gallery-grid.gallery-grid-keychains-only .gallery-card figcaption {
+  position: static;
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--color-ink);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  background: rgba(52, 64, 87, 0.08);
+  border-radius: 12px;
+  backdrop-filter: none;
+}
+
 .final-cta {
   padding: 94px 0;
   color: #fff;
@@ -1204,13 +1230,9 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .gallery-grid-keychains-only .gallery-card {
-    min-height: 240px;
-  }
-
-  .gallery-grid-keychains-only .gallery-card img {
-    min-height: 150px;
-    max-height: 170px;
+  .gallery-grid.gallery-grid-keychains-only .gallery-card img {
+    width: min(68%, 118px);
+    height: 118px;
   }
 }
 
@@ -1339,13 +1361,9 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .gallery-grid-keychains-only .gallery-card {
-    min-height: 220px;
-  }
-
-  .gallery-grid-keychains-only .gallery-card img {
-    min-height: 130px;
-    max-height: 150px;
+  .gallery-grid.gallery-grid-keychains-only .gallery-card img {
+    width: min(64%, 108px);
+    height: 108px;
   }
 
   .product-card {
