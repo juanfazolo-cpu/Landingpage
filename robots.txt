@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taldostudio3d.com.br/sitemap.xml
