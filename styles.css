@@ -1026,6 +1026,132 @@ h3 {
   transform: translateY(-3px);
 }
 
+.promo-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(52, 64, 87, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.promo-popup[hidden] {
+  display: none;
+}
+
+.promo-popup-dialog {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  width: min(440px, 100%);
+  padding: 28px 24px 22px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(255, 194, 26, 0.28), transparent 8rem),
+    radial-gradient(circle at 12% 92%, rgba(66, 214, 173, 0.2), transparent 7rem),
+    #ffffff;
+  border: 2px solid var(--color-dark);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  animation: promo-popup-in 320ms ease;
+}
+
+@keyframes promo-popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.promo-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: var(--color-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  background: rgba(52, 64, 87, 0.06);
+  border: 1px solid rgba(52, 64, 87, 0.12);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.promo-popup-close:hover {
+  color: var(--color-ink);
+  background: rgba(52, 64, 87, 0.1);
+}
+
+.promo-popup-eyebrow {
+  margin: 0;
+  color: var(--color-accent-strong);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.promo-popup-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 4vw, 1.85rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.promo-popup-discount {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-coral);
+  font-size: clamp(2rem, 7vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.promo-popup-text {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.promo-popup-text strong {
+  color: var(--color-ink);
+}
+
+.promo-popup-cta {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.promo-popup-dismiss {
+  padding: 4px 8px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.promo-popup-dismiss:hover {
+  color: var(--color-ink);
+}
+
 .lightbox {
   position: fixed;
   inset: 0;
