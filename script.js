@@ -1,8 +1,82 @@
 (function () {
+  const PROMO_POPUP_STORAGE_KEY = "taldo-promo-popup-seen";
+  const PROMO_POPUP_DELAY_MS = 2500;
+
+  const promoPopup = document.getElementById("promo-popup");
+
+  if (promoPopup) {
+    const closeButton = promoPopup.querySelector(".promo-popup-close");
+    const dismissButton = promoPopup.querySelector(".promo-popup-dismiss");
+    const dialog = promoPopup.querySelector(".promo-popup-dialog");
+    let popupTimerId = null;
+
+    function closePromoPopup(markAsSeen) {
+      if (popupTimerId !== null) {
+        window.clearTimeout(popupTimerId);
+        popupTimerId = null;
+      }
+
+      promoPopup.hidden = true;
+      promoPopup.setAttribute("aria-hidden", "true");
+
+      if (markAsSeen) {
+        try {
+          window.localStorage.setItem(PROMO_POPUP_STORAGE_KEY, "1");
+        } catch (error) {
+          // Ignore storage errors in private mode or restricted browsers.
+        }
+      }
+    }
+
+    function openPromoPopup() {
+      promoPopup.hidden = false;
+      promoPopup.setAttribute("aria-hidden", "false");
+    }
+
+    function shouldShowPromoPopup() {
+      try {
+        return !window.localStorage.getItem(PROMO_POPUP_STORAGE_KEY);
+      } catch (error) {
+        return true;
+      }
+    }
+
+    if (shouldShowPromoPopup()) {
+      popupTimerId = window.setTimeout(openPromoPopup, PROMO_POPUP_DELAY_MS);
+    }
+
+    closeButton.addEventListener("click", () => closePromoPopup(true));
+    dismissButton.addEventListener("click", () => closePromoPopup(true));
+
+    promoPopup.addEventListener("click", (event) => {
+      if (event.target === promoPopup) {
+        closePromoPopup(true);
+      }
+    });
+
+    dialog.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !promoPopup.hidden) {
+        closePromoPopup(true);
+      }
+    });
+  }
+
   const whatsappButtons = document.querySelectorAll("[data-whatsapp-cta]");
 
   whatsappButtons.forEach((button) => {
     button.addEventListener("click", () => {
+      if (button.classList.contains("promo-popup-cta")) {
+        try {
+          window.localStorage.setItem(PROMO_POPUP_STORAGE_KEY, "1");
+        } catch (error) {
+          // Ignore storage errors in private mode or restricted browsers.
+        }
+      }
+
       const eventPayload = {
         event: "whatsapp_budget_click",
         cta_label: button.dataset.ctaLabel || "sem-label",
