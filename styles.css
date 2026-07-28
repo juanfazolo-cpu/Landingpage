@@ -1383,6 +1383,56 @@ h3 {
   backdrop-filter: blur(10px);
 }
 
+.gallery-grid.gallery-grid-clocks {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: start;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.gallery-grid.gallery-grid-clocks .gallery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  height: auto;
+  min-height: 0;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.gallery-grid.gallery-grid-clocks .gallery-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  object-fit: cover;
+  object-position: center;
+  border-radius: calc(var(--radius-lg) - 10px);
+  background: #10141c;
+}
+
+.gallery-grid.gallery-grid-clocks .gallery-card:hover img {
+  transform: scale(1.02);
+}
+
+.gallery-grid.gallery-grid-clocks .gallery-card figcaption {
+  position: static;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  color: var(--color-ink);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  background: rgba(52, 64, 87, 0.08);
+  border-radius: 12px;
+  backdrop-filter: none;
+}
+
 .gallery-grid.gallery-grid-keychains-only {
   grid-auto-rows: auto;
   align-items: start;
@@ -1551,6 +1601,10 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .gallery-grid.gallery-grid-clocks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .gallery-grid.gallery-grid-keychains-only .gallery-card img {
     width: min(68%, 118px);
     height: 118px;
@@ -1687,6 +1741,10 @@ h3 {
 
   .gallery-grid-keychains-only {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery-grid.gallery-grid-clocks {
+    grid-template-columns: 1fr;
   }
 
   .gallery-grid.gallery-grid-keychains-only .gallery-card img {
