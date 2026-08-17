@@ -92,9 +92,9 @@
 
     const result = await response.json().catch(() => ({}));
 
-    if (!response.ok) {
-      throw new Error(result.error || "Falha ao cadastrar");
-    }
+        if (!response.ok) {
+          throw new Error(result.detail || result.error || "Falha ao cadastrar");
+        }
 
     trackEvent("email_signup", {
       source: payload.source,

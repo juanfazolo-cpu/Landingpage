@@ -1,5 +1,3 @@
-const { createClient } = require("@supabase/supabase-js");
-
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(res, status, body) {
@@ -35,6 +33,55 @@ function collectMeta(payload, req) {
     referrer: payload.referrer || null,
     user_agent: req.headers["user-agent"] || null,
   };
+}
+
+function buildSupabaseHeaders(serviceKey) {
+  const headers = {
+    apikey: serviceKey,
+    "Content-Type": "application/json",
+    Prefer: "resolution=merge-duplicates,return=representation",
+  };
+
+  // Chaves legadas (JWT eyJ...) precisam do Bearer.
+  // Chaves novas (sb_secret_...) NÃO devem ir no Authorization — o gateway rejeita como JWT inválido.
+  if (!String(serviceKey).startsWith("sb_")) {
+    headers.Authorization = `Bearer ${serviceKey}`;
+  }
+
+  return headers;
+}
+
+async function supabaseRequest(supabaseUrl, serviceKey, path, { method = "GET", body, prefer } = {}) {
+  const headers = buildSupabaseHeaders(serviceKey);
+  if (prefer) {
+    headers.Prefer = prefer;
+  }
+
+  const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${path}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  const text = await response.text();
+  let data = null;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    data = text;
+  }
+
+  if (!response.ok) {
+    const message =
+      (data && (data.message || data.error_description || data.error)) ||
+      `Supabase ${response.status}`;
+    const error = new Error(message);
+    error.status = response.status;
+    error.details = data;
+    throw error;
+  }
+
+  return data;
 }
 
 async function syncBrevo({ email, name, phone, tags }) {
@@ -83,13 +130,18 @@ module.exports = async function handler(req, res) {
     return json(res, 405, { error: "Method not allowed" });
   }
 
-  // Aceita SUPABASE_URL ou URL_SUPABASE (alias na Vercel)
   const supabaseUrl = process.env.SUPABASE_URL || process.env.URL_SUPABASE;
   const serviceKey =
     process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
 
   if (!supabaseUrl || !serviceKey) {
     return json(res, 503, { error: "Lead capture not configured" });
+  }
+
+  if (!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(String(supabaseUrl).trim())) {
+    return json(res, 503, {
+      error: "URL_SUPABASE inválida. Use https://SEU_PROJETO.supabase.co",
+    });
   }
 
   let payload;
@@ -120,53 +172,65 @@ module.exports = async function handler(req, res) {
     return json(res, 400, { error: "Consentimento de e-mail é obrigatório" });
   }
 
-  const supabase = createClient(supabaseUrl, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-
   const meta = collectMeta(payload, req);
   const tags = Array.from(new Set(["landing", source].filter(Boolean)));
-
-  const { data: customer, error: upsertError } = await supabase
-    .from("customers")
-    .upsert(
-      {
-        email,
-        name: name || null,
-        phone: phone || null,
-        source,
-        consent_email: true,
-        consent_at: new Date().toISOString(),
-        tags,
-        meta,
-      },
-      { onConflict: "email" }
-    )
-    .select("id, email")
-    .single();
-
-  if (upsertError) {
-    console.error("customers upsert", upsertError);
-    return json(res, 500, { error: "Não foi possível salvar o cadastro" });
-  }
-
-  const { error: eventError } = await supabase.from("lead_events").insert({
-    customer_id: customer.id,
-    event_type: "email_signup",
+  const customerRow = {
+    email,
+    name: name || null,
+    phone: phone || null,
     source,
-    page_url: pageUrl || null,
+    consent_email: true,
+    consent_at: new Date().toISOString(),
+    tags,
     meta,
-  });
-
-  if (eventError) {
-    console.error("lead_events insert", eventError);
-  }
+  };
 
   try {
-    await syncBrevo({ email, name, phone, tags });
-  } catch (error) {
-    console.error("brevo sync", error);
-  }
+    const customers = await supabaseRequest(
+      supabaseUrl.trim(),
+      serviceKey.trim(),
+      "customers?on_conflict=email",
+      {
+        method: "POST",
+        body: customerRow,
+        prefer: "resolution=merge-duplicates,return=representation",
+      }
+    );
 
-  return json(res, 200, { ok: true, customer_id: customer.id });
+    const customer = Array.isArray(customers) ? customers[0] : customers;
+
+    if (!customer || !customer.id) {
+      return json(res, 500, { error: "Cadastro não retornou o cliente" });
+    }
+
+    try {
+      await supabaseRequest(supabaseUrl.trim(), serviceKey.trim(), "lead_events", {
+        method: "POST",
+        body: {
+          customer_id: customer.id,
+          event_type: "email_signup",
+          source,
+          page_url: pageUrl || null,
+          meta,
+        },
+        prefer: "return=minimal",
+      });
+    } catch (eventError) {
+      console.error("lead_events insert", eventError);
+    }
+
+    try {
+      await syncBrevo({ email, name, phone, tags });
+    } catch (error) {
+      console.error("brevo sync", error);
+    }
+
+    return json(res, 200, { ok: true, customer_id: customer.id });
+  } catch (error) {
+    console.error("customers upsert", error);
+    return json(res, 500, {
+      error: "Não foi possível salvar o cadastro",
+      detail: error && error.message ? error.message : "erro desconhecido",
+    });
+  }
 };
