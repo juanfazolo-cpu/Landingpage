@@ -23,6 +23,12 @@ function readBody(req) {
   });
 }
 
+function cleanEnv(value) {
+  return String(value || "")
+    .trim()
+    .replace(/^["']|["']$/g, "");
+}
+
 function collectMeta(payload, req) {
   return {
     utm_source: payload.utm_source || null,
@@ -35,53 +41,73 @@ function collectMeta(payload, req) {
   };
 }
 
-function buildSupabaseHeaders(serviceKey) {
-  const headers = {
+function detectKeyType(serviceKey) {
+  if (serviceKey.startsWith("sb_secret_")) return "sb_secret";
+  if (serviceKey.startsWith("sb_publishable_")) return "sb_publishable";
+  if (serviceKey.startsWith("eyJ")) return "legacy_jwt";
+  return "unknown";
+}
+
+function buildHeaderVariants(serviceKey) {
+  const keyType = detectKeyType(serviceKey);
+  const base = {
     apikey: serviceKey,
     "Content-Type": "application/json",
-    Prefer: "resolution=merge-duplicates,return=representation",
   };
 
-  // Chaves legadas (JWT eyJ...) precisam do Bearer.
-  // Chaves novas (sb_secret_...) NÃO devem ir no Authorization — o gateway rejeita como JWT inválido.
-  if (!String(serviceKey).startsWith("sb_")) {
-    headers.Authorization = `Bearer ${serviceKey}`;
+  // sb_secret: só apikey (Bearer quebra com Invalid JWT)
+  // JWT legado: apikey + Authorization Bearer
+  if (keyType === "sb_secret" || keyType === "sb_publishable") {
+    return [{ ...base }, { ...base, Authorization: `Bearer ${serviceKey}` }];
   }
 
-  return headers;
+  return [{ ...base, Authorization: `Bearer ${serviceKey}` }];
 }
 
 async function supabaseRequest(supabaseUrl, serviceKey, path, { method = "GET", body, prefer } = {}) {
-  const headers = buildSupabaseHeaders(serviceKey);
-  if (prefer) {
-    headers.Prefer = prefer;
-  }
+  const variants = buildHeaderVariants(serviceKey);
+  let lastError = null;
 
-  const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  for (const headers of variants) {
+    if (prefer) {
+      headers.Prefer = prefer;
+    }
 
-  const text = await response.text();
-  let data = null;
-  try {
-    data = text ? JSON.parse(text) : null;
-  } catch {
-    data = text;
-  }
+    const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+    });
 
-  if (!response.ok) {
+    const text = await response.text();
+    let data = null;
+    try {
+      data = text ? JSON.parse(text) : null;
+    } catch {
+      data = text;
+    }
+
+    if (response.ok) {
+      return data;
+    }
+
     const message =
-      (data && (data.message || data.error_description || data.error)) ||
+      (data && (data.message || data.error_description || data.hint || data.error || data.code)) ||
       `Supabase ${response.status}`;
-    const error = new Error(message);
-    error.status = response.status;
-    error.details = data;
-    throw error;
+
+    lastError = new Error(typeof message === "string" ? message : JSON.stringify(message));
+    lastError.status = response.status;
+    lastError.details = data;
+
+    // Se deu Invalid JWT, tenta a próxima variante de header
+    const msg = String(message).toLowerCase();
+    if (msg.includes("jwt") || response.status === 401) {
+      continue;
+    }
+    break;
   }
 
-  return data;
+  throw lastError || new Error("Falha ao falar com o Supabase");
 }
 
 async function syncBrevo({ email, name, phone, tags }) {
@@ -119,28 +145,81 @@ async function syncBrevo({ email, name, phone, tags }) {
   return { synced: true };
 }
 
+function getConfig() {
+  const supabaseUrl = cleanEnv(process.env.SUPABASE_URL || process.env.URL_SUPABASE);
+  const serviceKey = cleanEnv(
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY
+  );
+  return { supabaseUrl, serviceKey, keyType: detectKeyType(serviceKey) };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") {
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     return json(res, 204, {});
+  }
+
+  const { supabaseUrl, serviceKey, keyType } = getConfig();
+
+  // Diagnóstico sem gravar dados
+  if (req.method === "GET") {
+    if (!supabaseUrl || !serviceKey) {
+      return json(res, 503, {
+        ok: false,
+        error: "Variáveis ausentes",
+        hasUrl: Boolean(supabaseUrl),
+        hasKey: Boolean(serviceKey),
+      });
+    }
+
+    const urlOk = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(supabaseUrl);
+    let probe = null;
+    try {
+      await supabaseRequest(supabaseUrl, serviceKey, "customers?select=id&limit=1", {
+        method: "GET",
+        prefer: "count=exact",
+      });
+      probe = { ok: true };
+    } catch (error) {
+      probe = {
+        ok: false,
+        status: error.status || null,
+        detail: error.message || "erro",
+      };
+    }
+
+    return json(res, probe.ok ? 200 : 500, {
+      ok: probe.ok,
+      urlOk,
+      keyType,
+      hint:
+        keyType === "sb_publishable"
+          ? "Troque pela chave secreta (sb_secret_) ou service_role legada"
+          : keyType === "sb_secret" && !probe.ok
+            ? "Se continuar falhando, use a aba legada service_role (eyJ...) na Vercel"
+            : null,
+      probe,
+    });
   }
 
   if (req.method !== "POST") {
     return json(res, 405, { error: "Method not allowed" });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.URL_SUPABASE;
-  const serviceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
-
   if (!supabaseUrl || !serviceKey) {
     return json(res, 503, { error: "Lead capture not configured" });
   }
 
-  if (!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(String(supabaseUrl).trim())) {
+  if (!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(supabaseUrl)) {
     return json(res, 503, {
       error: "URL_SUPABASE inválida. Use https://SEU_PROJETO.supabase.co",
+    });
+  }
+
+  if (keyType === "sb_publishable") {
+    return json(res, 503, {
+      error: "Chave publicável no lugar da secreta. Use sb_secret_ ou service_role.",
     });
   }
 
@@ -187,8 +266,8 @@ module.exports = async function handler(req, res) {
 
   try {
     const customers = await supabaseRequest(
-      supabaseUrl.trim(),
-      serviceKey.trim(),
+      supabaseUrl,
+      serviceKey,
       "customers?on_conflict=email",
       {
         method: "POST",
@@ -204,7 +283,7 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-      await supabaseRequest(supabaseUrl.trim(), serviceKey.trim(), "lead_events", {
+      await supabaseRequest(supabaseUrl, serviceKey, "lead_events", {
         method: "POST",
         body: {
           customer_id: customer.id,
@@ -231,6 +310,9 @@ module.exports = async function handler(req, res) {
     return json(res, 500, {
       error: "Não foi possível salvar o cadastro",
       detail: error && error.message ? error.message : "erro desconhecido",
+      keyType,
+      hint:
+        "No Supabase → API Keys → aba legada, copie service_role (eyJ...) e cole em SUPABASE_SERVICE_ROLE_KEY na Vercel. Redeploy.",
     });
   }
 };
