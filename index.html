@@ -1327,22 +1327,50 @@
         <button class="promo-popup-close" type="button" aria-label="Fechar oferta">×</button>
         <p class="promo-popup-eyebrow">Oferta de boas-vindas</p>
         <h2 class="promo-popup-title" id="promo-popup-title">
-          <span class="promo-popup-discount">10% OFF</span>
-          na sua primeira compra
+          <span class="promo-popup-discount">até 15% OFF</span>
+          na primeira compra
         </h2>
         <p class="promo-popup-text">
-          Peça seu orçamento pelo WhatsApp e ganhe <strong>10% de desconto</strong> na primeira encomenda
-          de bonecos, chaveiros ou peças personalizadas.
+          Preencha nome, e-mail e telefone para ganhar <strong>10% + 5%</strong> e ir direto ao WhatsApp.
+          Sem cadastro, você segue com <strong>10%</strong>.
         </p>
+
+        <form class="promo-lead-form" id="promo-lead-form" novalidate>
+          <label class="lead-field">
+            <span>Nome</span>
+            <input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Seu nome" required>
+          </label>
+          <label class="lead-field">
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email" maxlength="180" placeholder="voce@email.com" required>
+          </label>
+          <label class="lead-field">
+            <span>WhatsApp / telefone</span>
+            <input type="tel" name="phone" autocomplete="tel" maxlength="40" placeholder="(11) 90000-0000" required>
+          </label>
+          <label class="lead-honeypot" aria-hidden="true">
+            <span>Empresa</span>
+            <input type="text" name="company" tabindex="-1" autocomplete="off">
+          </label>
+          <label class="lead-consent promo-lead-consent">
+            <input type="checkbox" name="consent_email" value="1" required checked>
+            <span>Aceito receber novidades e ofertas da Taldo por e-mail.</span>
+          </label>
+          <button class="button button-primary promo-popup-cta" type="submit" id="promo-lead-submit">
+            Cadastrar e ganhar 15% no WhatsApp
+          </button>
+          <p class="lead-form-status promo-lead-status" id="promo-lead-status" role="status" aria-live="polite" hidden></p>
+        </form>
+
         <a
-          class="button button-primary promo-popup-cta"
+          class="promo-popup-skip"
           href="https://wa.me/5511910634551?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20usar%20meu%20desconto%20de%2010%25%20na%20primeira%20compra."
           target="_blank"
           rel="noopener noreferrer"
           data-whatsapp-cta
-          data-cta-label="popup-desconto-10"
+          data-cta-label="popup-desconto-10-sem-cadastro"
         >
-          Quero meu desconto no WhatsApp
+          Seguir sem cadastro com 10%
         </a>
         <button class="promo-popup-dismiss" type="button">Agora não, obrigado</button>
       </div>
