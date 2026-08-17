@@ -100,6 +100,109 @@
     });
   });
 
+  function getUrlParam(name) {
+    try {
+      return new URLSearchParams(window.location.search).get(name);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  const leadForm = document.getElementById("lead-form");
+
+  if (leadForm) {
+    const statusEl = document.getElementById("lead-form-status");
+    const submitButton = document.getElementById("lead-form-submit");
+
+    function setLeadStatus(message, type) {
+      if (!statusEl) {
+        return;
+      }
+      statusEl.hidden = !message;
+      statusEl.textContent = message || "";
+      statusEl.classList.remove("is-error", "is-success");
+      if (type) {
+        statusEl.classList.add(type);
+      }
+    }
+
+    leadForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(leadForm);
+      const email = String(formData.get("email") || "").trim();
+      const consent = formData.get("consent_email") === "1";
+
+      if (!email) {
+        setLeadStatus("Informe um e-mail válido.", "is-error");
+        return;
+      }
+
+      if (!consent) {
+        setLeadStatus("Marque o consentimento para receber e-mails.", "is-error");
+        return;
+      }
+
+      const payload = {
+        name: String(formData.get("name") || "").trim(),
+        email,
+        phone: String(formData.get("phone") || "").trim(),
+        company: String(formData.get("company") || "").trim(),
+        consent_email: true,
+        source: "landing-contato",
+        page_url: window.location.href,
+        referrer: document.referrer || null,
+        utm_source: getUrlParam("utm_source"),
+        utm_medium: getUrlParam("utm_medium"),
+        utm_campaign: getUrlParam("utm_campaign"),
+        utm_content: getUrlParam("utm_content"),
+        utm_term: getUrlParam("utm_term"),
+      };
+
+      submitButton.disabled = true;
+      setLeadStatus("Enviando...", null);
+
+      try {
+        const response = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(result.error || "Falha ao cadastrar");
+        }
+
+        leadForm.reset();
+        setLeadStatus("Pronto! Você entrou na lista da Taldo.", "is-success");
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "email_signup",
+          source: payload.source,
+          page_location: window.location.href,
+        });
+
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "email_signup", {
+            event_category: "lead",
+            event_label: payload.source,
+            transport_type: "beacon",
+          });
+        }
+      } catch (error) {
+        setLeadStatus(
+          error && error.message ? error.message : "Não foi possível cadastrar agora. Tente de novo.",
+          "is-error"
+        );
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  }
+
   const lightbox = document.getElementById("lightbox");
 
   if (lightbox) {

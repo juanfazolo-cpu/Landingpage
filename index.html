@@ -1251,7 +1251,7 @@
         <div class="section-shell final-cta-content">
           <span class="eyebrow">Vamos produzir sua ideia?</span>
           <h2>Tem uma ideia ou precisa de um produto personalizado?</h2>
-          <p>Envie sua referência e receba um orçamento pelo WhatsApp.</p>
+          <p>Envie sua referência e receba um orçamento pelo WhatsApp — ou deixe seu e-mail para novidades e ofertas.</p>
           <div class="final-actions">
             <a
               class="button button-primary"
@@ -1272,6 +1272,36 @@
               Ver Instagram
             </a>
           </div>
+
+          <form class="lead-form" id="lead-form" novalidate>
+            <p class="lead-form-title">Receber novidades e ofertas</p>
+            <div class="lead-form-grid">
+              <label class="lead-field">
+                <span>Nome</span>
+                <input type="text" name="name" autocomplete="name" maxlength="120" placeholder="Seu nome">
+              </label>
+              <label class="lead-field">
+                <span>E-mail</span>
+                <input type="email" name="email" autocomplete="email" maxlength="180" placeholder="voce@email.com" required>
+              </label>
+              <label class="lead-field">
+                <span>WhatsApp (opcional)</span>
+                <input type="tel" name="phone" autocomplete="tel" maxlength="40" placeholder="(11) 90000-0000">
+              </label>
+            </div>
+            <label class="lead-honeypot" aria-hidden="true">
+              <span>Empresa</span>
+              <input type="text" name="company" tabindex="-1" autocomplete="off">
+            </label>
+            <label class="lead-consent">
+              <input type="checkbox" name="consent_email" value="1" required>
+              <span>Aceito receber comunicações da Taldo Studio 3D por e-mail. Posso cancelar quando quiser.</span>
+            </label>
+            <button class="button button-primary" type="submit" id="lead-form-submit">
+              Quero receber novidades
+            </button>
+            <p class="lead-form-status" id="lead-form-status" role="status" aria-live="polite" hidden></p>
+          </form>
         </div>
       </section>
     </main>
