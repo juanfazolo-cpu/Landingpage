@@ -135,7 +135,11 @@ module.exports = async function handler(req, res) {
 
     try {
       const supabase = createAdminClient(supabaseUrl, serviceKey);
-      const { error } = await supabase.from("customers").select("id").limit(1);
+      const { data, error, count } = await supabase
+        .from("customers")
+        .select("id, email, created_at", { count: "exact" })
+        .order("created_at", { ascending: false })
+        .limit(5);
       if (error) {
         return json(res, 500, {
           ok: false,
@@ -146,7 +150,13 @@ module.exports = async function handler(req, res) {
           hint: error.hint || null,
         });
       }
-      return json(res, 200, { ok: true, urlOk, keyType });
+      return json(res, 200, {
+        ok: true,
+        urlOk,
+        keyType,
+        customerCount: count,
+        latest: data || [],
+      });
     } catch (error) {
       return json(res, 500, {
         ok: false,
