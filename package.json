@@ -2,5 +2,8 @@
   "name": "taldo-landingpage",
   "private": true,
   "version": "1.0.0",
-  "description": "Landing Taldo Studio 3D + captura de leads"
+  "description": "Landing Taldo Studio 3D + captura de leads",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4"
+  }
 }

@@ -1,3 +1,5 @@
+const { createClient } = require("@supabase/supabase-js");
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(res, status, body) {
@@ -48,66 +50,22 @@ function detectKeyType(serviceKey) {
   return "unknown";
 }
 
-function buildHeaderVariants(serviceKey) {
-  const keyType = detectKeyType(serviceKey);
-  const base = {
-    apikey: serviceKey,
-    "Content-Type": "application/json",
-  };
-
-  // sb_secret: só apikey (Bearer quebra com Invalid JWT)
-  // JWT legado: apikey + Authorization Bearer
-  if (keyType === "sb_secret" || keyType === "sb_publishable") {
-    return [{ ...base }, { ...base, Authorization: `Bearer ${serviceKey}` }];
-  }
-
-  return [{ ...base, Authorization: `Bearer ${serviceKey}` }];
+function getConfig() {
+  const supabaseUrl = cleanEnv(process.env.SUPABASE_URL || process.env.URL_SUPABASE);
+  const serviceKey = cleanEnv(
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY
+  );
+  return { supabaseUrl, serviceKey, keyType: detectKeyType(serviceKey) };
 }
 
-async function supabaseRequest(supabaseUrl, serviceKey, path, { method = "GET", body, prefer } = {}) {
-  const variants = buildHeaderVariants(serviceKey);
-  let lastError = null;
-
-  for (const headers of variants) {
-    if (prefer) {
-      headers.Prefer = prefer;
-    }
-
-    const response = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/${path}`, {
-      method,
-      headers,
-      body: body ? JSON.stringify(body) : undefined,
-    });
-
-    const text = await response.text();
-    let data = null;
-    try {
-      data = text ? JSON.parse(text) : null;
-    } catch {
-      data = text;
-    }
-
-    if (response.ok) {
-      return data;
-    }
-
-    const message =
-      (data && (data.message || data.error_description || data.hint || data.error || data.code)) ||
-      `Supabase ${response.status}`;
-
-    lastError = new Error(typeof message === "string" ? message : JSON.stringify(message));
-    lastError.status = response.status;
-    lastError.details = data;
-
-    // Se deu Invalid JWT, tenta a próxima variante de header
-    const msg = String(message).toLowerCase();
-    if (msg.includes("jwt") || response.status === 401) {
-      continue;
-    }
-    break;
-  }
-
-  throw lastError || new Error("Falha ao falar com o Supabase");
+function createAdminClient(supabaseUrl, serviceKey) {
+  return createClient(supabaseUrl, serviceKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+  });
 }
 
 async function syncBrevo({ email, name, phone, tags }) {
@@ -145,14 +103,6 @@ async function syncBrevo({ email, name, phone, tags }) {
   return { synced: true };
 }
 
-function getConfig() {
-  const supabaseUrl = cleanEnv(process.env.SUPABASE_URL || process.env.URL_SUPABASE);
-  const serviceKey = cleanEnv(
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY
-  );
-  return { supabaseUrl, serviceKey, keyType: detectKeyType(serviceKey) };
-}
-
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -162,45 +112,49 @@ module.exports = async function handler(req, res) {
 
   const { supabaseUrl, serviceKey, keyType } = getConfig();
 
-  // Diagnóstico sem gravar dados
   if (req.method === "GET") {
     if (!supabaseUrl || !serviceKey) {
       return json(res, 503, {
         ok: false,
-        error: "Variáveis ausentes",
+        error: "Variáveis ausentes na Vercel",
         hasUrl: Boolean(supabaseUrl),
         hasKey: Boolean(serviceKey),
       });
     }
 
     const urlOk = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(supabaseUrl);
-    let probe = null;
-    try {
-      await supabaseRequest(supabaseUrl, serviceKey, "customers?select=id&limit=1", {
-        method: "GET",
-        prefer: "count=exact",
-      });
-      probe = { ok: true };
-    } catch (error) {
-      probe = {
+
+    if (keyType === "sb_publishable") {
+      return json(res, 503, {
         ok: false,
-        status: error.status || null,
-        detail: error.message || "erro",
-      };
+        urlOk,
+        keyType,
+        error: "Está usando a chave publicável. Troque pela Secret key (sb_secret_...).",
+      });
     }
 
-    return json(res, probe.ok ? 200 : 500, {
-      ok: probe.ok,
-      urlOk,
-      keyType,
-      hint:
-        keyType === "sb_publishable"
-          ? "Troque pela chave secreta (sb_secret_) ou service_role legada"
-          : keyType === "sb_secret" && !probe.ok
-            ? "Se continuar falhando, use a aba legada service_role (eyJ...) na Vercel"
-            : null,
-      probe,
-    });
+    try {
+      const supabase = createAdminClient(supabaseUrl, serviceKey);
+      const { error } = await supabase.from("customers").select("id").limit(1);
+      if (error) {
+        return json(res, 500, {
+          ok: false,
+          urlOk,
+          keyType,
+          error: error.message,
+          code: error.code || null,
+          hint: error.hint || null,
+        });
+      }
+      return json(res, 200, { ok: true, urlOk, keyType });
+    } catch (error) {
+      return json(res, 500, {
+        ok: false,
+        urlOk,
+        keyType,
+        error: error && error.message ? error.message : "erro desconhecido",
+      });
+    }
   }
 
   if (req.method !== "POST") {
@@ -219,7 +173,7 @@ module.exports = async function handler(req, res) {
 
   if (keyType === "sb_publishable") {
     return json(res, 503, {
-      error: "Chave publicável no lugar da secreta. Use sb_secret_ ou service_role.",
+      error: "Chave publicável no lugar da secreta. Use a Secret key (sb_secret_...).",
     });
   }
 
@@ -253,48 +207,48 @@ module.exports = async function handler(req, res) {
 
   const meta = collectMeta(payload, req);
   const tags = Array.from(new Set(["landing", source].filter(Boolean)));
-  const customerRow = {
-    email,
-    name: name || null,
-    phone: phone || null,
-    source,
-    consent_email: true,
-    consent_at: new Date().toISOString(),
-    tags,
-    meta,
-  };
 
   try {
-    const customers = await supabaseRequest(
-      supabaseUrl,
-      serviceKey,
-      "customers?on_conflict=email",
-      {
-        method: "POST",
-        body: customerRow,
-        prefer: "resolution=merge-duplicates,return=representation",
-      }
-    );
+    const supabase = createAdminClient(supabaseUrl, serviceKey);
 
-    const customer = Array.isArray(customers) ? customers[0] : customers;
-
-    if (!customer || !customer.id) {
-      return json(res, 500, { error: "Cadastro não retornou o cliente" });
-    }
-
-    try {
-      await supabaseRequest(supabaseUrl, serviceKey, "lead_events", {
-        method: "POST",
-        body: {
-          customer_id: customer.id,
-          event_type: "email_signup",
+    const { data: customer, error: upsertError } = await supabase
+      .from("customers")
+      .upsert(
+        {
+          email,
+          name: name || null,
+          phone: phone || null,
           source,
-          page_url: pageUrl || null,
+          consent_email: true,
+          consent_at: new Date().toISOString(),
+          tags,
           meta,
         },
-        prefer: "return=minimal",
+        { onConflict: "email" }
+      )
+      .select("id, email")
+      .single();
+
+    if (upsertError) {
+      console.error("customers upsert", upsertError);
+      return json(res, 500, {
+        error: "Não foi possível salvar o cadastro",
+        detail: upsertError.message,
+        code: upsertError.code || null,
+        hint: upsertError.hint || null,
+        keyType,
       });
-    } catch (eventError) {
+    }
+
+    const { error: eventError } = await supabase.from("lead_events").insert({
+      customer_id: customer.id,
+      event_type: "email_signup",
+      source,
+      page_url: pageUrl || null,
+      meta,
+    });
+
+    if (eventError) {
       console.error("lead_events insert", eventError);
     }
 
@@ -306,13 +260,11 @@ module.exports = async function handler(req, res) {
 
     return json(res, 200, { ok: true, customer_id: customer.id });
   } catch (error) {
-    console.error("customers upsert", error);
+    console.error("customers upsert fatal", error);
     return json(res, 500, {
       error: "Não foi possível salvar o cadastro",
       detail: error && error.message ? error.message : "erro desconhecido",
       keyType,
-      hint:
-        "No Supabase → API Keys → aba legada, copie service_role (eyJ...) e cole em SUPABASE_SERVICE_ROLE_KEY na Vercel. Redeploy.",
     });
   }
 };
