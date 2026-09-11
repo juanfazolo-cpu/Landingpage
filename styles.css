@@ -182,6 +182,116 @@ svg {
   padding: 72px 0 88px;
 }
 
+.brands-marquee {
+  margin: 0 0 8px;
+  padding: 22px 0 30px;
+  overflow: hidden;
+  border-block: 1px solid rgba(32, 169, 232, 0.16);
+  background:
+    radial-gradient(circle at 12% 50%, rgba(32, 169, 232, 0.1), transparent 18rem),
+    linear-gradient(180deg, rgba(247, 252, 255, 0.9), rgba(255, 255, 255, 0.95));
+}
+
+.brands-marquee-inner {
+  display: grid;
+  gap: 14px;
+}
+
+.brands-marquee-label {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.brands-marquee-viewport {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.brands-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: brands-marquee-scroll 32s linear infinite;
+}
+
+.brands-marquee-viewport:hover .brands-marquee-track {
+  animation-play-state: paused;
+}
+
+.brands-marquee-list {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+  margin: 0;
+  padding: 6px 26px;
+  list-style: none;
+}
+
+.brands-marquee-item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  min-height: 64px;
+  padding-right: 52px;
+}
+
+.brands-marquee-item::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+  transform: translateY(-50%);
+  opacity: 0.85;
+}
+
+.brands-marquee-item img {
+  display: block;
+  width: auto;
+  max-width: 168px;
+  max-height: 52px;
+  object-fit: contain;
+}
+
+.brands-marquee-item img.is-on-black {
+  /* PNGs com fundo preto: o preto some no fundo claro */
+  mix-blend-mode: screen;
+}
+
+.brands-marquee-item:nth-child(3n) img {
+  max-height: 58px;
+}
+
+@keyframes brands-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brands-marquee-track {
+    animation: none;
+  }
+
+  .brands-marquee-viewport {
+    overflow-x: auto;
+  }
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
